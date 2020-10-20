@@ -1,3 +1,10 @@
-from django.test import TestCase
+from account.models import *
 
-# Create your tests here.
+
+def test_user_creation():
+    user = User.objects.create(
+        email='test@test.test',
+        password='password'
+    )
+    assert user.username
+

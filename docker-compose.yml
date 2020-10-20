@@ -4,12 +4,12 @@ services:
   web:
     build: ./
     container_name: web
-    command: python manage.py runserver 0:8000
+    command: python ./src/manage.py runserver 0:8000
     restart: always
     volumes:
-      - ./src:/usr/src/app/
+      - .:/usr/src/app/
     ports:
-      - "8000-8080:8000-8080"
+      - "${WSGI_PORT}:${WSGI_PORT}"
     env_file:
       - ./.env
     depends_on:

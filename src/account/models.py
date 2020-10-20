@@ -1,8 +1,12 @@
 import uuid
-from bitcoin import privtopub, pubtoaddr, random_key
-from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import AbstractUser
 from django.db import models
+
+from bitcoin import privtopub, pubtoaddr, random_key
+
+
+__all__ = ('User', 'Wallet')
 
 
 class User(AbstractUser):
