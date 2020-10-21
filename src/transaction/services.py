@@ -1,5 +1,7 @@
 from django.db import transaction
+from django.db.models import F
 
+from account.models import Wallet
 from transaction.models import Transaction
 from transaction import choices
 
@@ -15,8 +17,8 @@ def execute_wallet_transaction(transaction_data):
     }
     :return: Transaction instance
     """
-    source_wallet = transaction_data.get('source_wallet')
-    target_wallet = transaction_data.get('target_wallet')
+    source_wallet = Wallet.objects.select_for_update().get(pk=transaction_data.get('source_wallet').pk)
+    target_wallet = Wallet.objects.select_for_update().get(pk=transaction_data.get('target_wallet').pk)
 
     initial_amount = transaction_data.get('initial_amount')
     if source_wallet.balance >= initial_amount:
@@ -25,9 +27,7 @@ def execute_wallet_transaction(transaction_data):
         final_amount = int(initial_amount * (1 - percent_value))
         transaction_data['final_amount'] = final_amount
 
-        source_wallet.balance = source_wallet.balance - initial_amount
-        target_wallet.balance = target_wallet.balance + final_amount
-        source_wallet.save(update_fields=('balance', ))
-        target_wallet.save(update_fields=('balance', ))
+        Wallet.objects.filter(pk=source_wallet.pk).update(balance=F('balance') - initial_amount)
+        Wallet.objects.filter(pk=target_wallet.pk).update(balance=F('balance') + final_amount)
 
     return Transaction.objects.create(**transaction_data)
