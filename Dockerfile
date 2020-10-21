@@ -1,7 +1,7 @@
 FROM python:3.8.3-alpine
 
 # set work directory
-WORKDIR /usr/src/app
+WORKDIR /usr/src/transferer
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -14,5 +14,5 @@ RUN apk update \
 
 # install dependencies
 RUN pip install --upgrade pip
-COPY requirements.txt /usr/src/app/requirements.txt
+COPY requirements.txt /usr/src/transferer/requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt

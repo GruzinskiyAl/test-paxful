@@ -1,12 +1,12 @@
 **Start project**  
 `cp .env.example .env`  
-`docker-compose up -d`  
-`docker exec -t web python ./src/manage.py migrate`  
+`make migrate`  
+`docker-compose up`  
 
 **Run flake8**  
-`docker exec -t web flake8 ./src`  
+`make lint`  
 
 **Run tests**  
-`docker exec -t web python ./src/manage.py test account transaction`
+`make test`
 
 

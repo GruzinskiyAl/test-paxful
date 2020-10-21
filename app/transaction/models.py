@@ -11,12 +11,4 @@ class Transaction(models.Model):
     target_wallet = models.ForeignKey(Wallet, on_delete=models.CASCADE, related_name='income_transactions')
     initial_amount = models.BigIntegerField()
     final_amount = models.BigIntegerField(null=True)
-    status = models.PositiveSmallIntegerField(choices=TRANSACTION_STATUS_CHOICES, default=0)
-
-    @classmethod
-    def get_transaction_commission_percent(cls):
-        """
-        Returns commission percent as float
-        Can be implementer
-        """
-        return 0.015
+    status = models.PositiveSmallIntegerField(choices=TRANSACTION_STATUS_CHOICES)

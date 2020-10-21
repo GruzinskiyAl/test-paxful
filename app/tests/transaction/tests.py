@@ -1,5 +1,5 @@
 from django.test import TestCase
-from account.models import *
+from account.models import User
 from transaction.services import execute_wallet_transaction
 from transaction.choices import TRANSACTION_SUCCESS_STATUS, TRANSACTION_FAIL_STATUS
 

@@ -2,12 +2,12 @@ version: '3.8'
 
 services:
   web:
-    build: ./
+    build: .
     container_name: web
-    command: python ./src/manage.py runserver 0:8000
+    command: python manage.py runserver 0:8000
     restart: always
     volumes:
-      - .:/usr/src/app/
+      - .:/usr/src/transferer/
     ports:
       - "${WSGI_PORT}:${WSGI_PORT}"
     env_file:

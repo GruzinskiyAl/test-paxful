@@ -109,3 +109,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 AUTH_USER_MODEL = 'account.User'
+TRANSACTION_COMMISSION = 0.015

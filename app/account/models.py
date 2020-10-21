@@ -6,9 +6,6 @@ from django.db import models
 from bitcoin import privtopub, pubtoaddr, random_key
 
 
-__all__ = ('User', 'Wallet')
-
-
 class User(AbstractUser):
     email = models.EmailField(blank=False, null=False, db_index=True, unique=True)
 
