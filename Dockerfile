@@ -14,5 +14,5 @@ RUN apk update \
 
 # install dependencies
 RUN pip install --upgrade pip
-COPY src/requirements.txt /usr/src/app/requirements.txt
+COPY requirements.txt /usr/src/app/requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt

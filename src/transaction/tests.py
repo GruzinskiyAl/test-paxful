@@ -6,16 +6,14 @@ from transaction.choices import TRANSACTION_SUCCESS_STATUS, TRANSACTION_FAIL_STA
 
 class TransactionTestCase(TestCase):
     def setUp(self):
-        source_user = User.objects.create(email="source@test.test", password="password")
-        User.objects.create(email="target@test.test", password="password")
-        source_user.wallets.all().update(balance=1000)
+        self.source_user = User.objects.create(email="source@test.test", password="password")
+        self.target_user = User.objects.create(email="target@test.test", password="password")
+        self.source_user.wallets.all().update(balance=1000)
 
     def test_success_transaction(self):
         """Transaction between wallets"""
-        source_user = User.objects.get(email="source@test.test")
-        target_user = User.objects.get(email="target@test.test")
-        source_wallet = source_user.wallets.last()
-        target_wallet = target_user.wallets.last()
+        source_wallet = self.source_user.wallets.last()
+        target_wallet = self.target_user.wallets.last()
 
         source_balance_init = source_wallet.balance
         target_balance_init = target_wallet.balance
@@ -37,10 +35,8 @@ class TransactionTestCase(TestCase):
 
     def test_fail_transaction(self):
         """Transaction between wallets fail if initial amount bigger then source balance"""
-        source_user = User.objects.get(email="source@test.test")
-        target_user = User.objects.get(email="target@test.test")
-        source_wallet = source_user.wallets.last()
-        target_wallet = target_user.wallets.last()
+        source_wallet = self.source_user.wallets.last()
+        target_wallet = self.target_user.wallets.last()
 
         source_balance_init = source_wallet.balance
         target_balance_init = target_wallet.balance
